@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gurukul Kaushal Mela Feedback</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Alice&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Alice', serif;
+        background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+        background-attachment: fixed;
+        color: #0c4a6e;
+        overflow-x: hidden;
+      }
+      h1, h2, h3, h4, h5, h6, button, input, textarea, .font-brand {
+        font-family: 'Alice', serif;
+      }
+      .emoji-particle {
+        pointer-events: none;
+        position: fixed;
+        z-index: 100;
+      }
+      @keyframes rise {
+        0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-100vh) scale(2) rotate(360deg); opacity: 0; }
+      }
+      @keyframes pin-drop {
+        0% { transform: scale(3) rotate(-10deg); opacity: 0; }
+        70% { transform: scale(0.8) rotate(5deg); }
+        100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      }
+      .animate-pin {
+        animation: pin-drop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
+      .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+      }
+      @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react": "https://esm.sh/react@^19.2.3"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
+  </body>
+</html>
