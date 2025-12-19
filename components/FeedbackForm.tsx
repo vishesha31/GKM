@@ -6,7 +6,11 @@ import { audioService } from '../services/audioService';
 import { EmojiFountain } from './EmojiFountain';
 import { Logo } from './Branding';
 
-export const FeedbackForm: React.FC = () => {
+interface FeedbackFormProps {
+  onSubmitted?: () => void;
+}
+
+export const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmitted }) => {
   const [activeTab, setActiveTab] = useState<FeedbackType>('emoji');
   const [word, setWord] = useState('');
   const [comment, setComment] = useState('');
@@ -29,7 +33,10 @@ export const FeedbackForm: React.FC = () => {
     if (type === 'comment') setComment('');
     
     setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 2000);
+    // Notify parent component for redirection logic
+    if (onSubmitted) onSubmitted();
+    
+    setTimeout(() => setShowSuccess(false), 2500);
   };
 
   const handleEmojiSelect = (emoji: string) => {
@@ -52,8 +59,9 @@ export const FeedbackForm: React.FC = () => {
       </header>
 
       {showSuccess && (
-        <div className="fixed top-10 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-purple-600 text-white px-8 py-4 rounded-full shadow-2xl z-50 animate-bounce flex items-center gap-3 text-sm border-2 border-white italic">
-          ✨ Feedback Received! 🎊
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-purple-600 text-white px-8 py-4 rounded-full shadow-2xl z-[100] animate-bounce flex flex-col items-center gap-1 text-center border-2 border-white italic">
+          <span className="text-lg font-bold">Thanks for the encouragement! ✨</span>
+          <span className="text-[10px] uppercase tracking-widest opacity-80">Your voice matters to us</span>
         </div>
       )}
 
