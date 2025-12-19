@@ -20,76 +20,70 @@ export const EmojiGrid: React.FC<EmojiGridProps> = ({ entries }) => {
   }, [entries]);
 
   return (
-    <div className="grid grid-cols-2 gap-3 h-full p-3 bg-transparent">
-      {EMOJIS.map((emoji) => {
-        const votes = pinGroups[emoji];
-        const visibleVotes = votes.slice(-25); 
-        
-        return (
-          <div
-            key={emoji}
-            className="relative bg-white/80 rounded-[1.5rem] shadow-sm border border-sky-100 overflow-hidden flex flex-col items-center justify-center group"
-          >
-            {/* Background Texture */}
-            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#0ea5e9_1px,transparent_1px)] [background-size:24px_24px]"></div>
-            
-            {/* Subtle Center Reference */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none">
-              <span className="text-[10rem]">{emoji}</span>
-            </div>
+    <div className="flex flex-col h-full w-full bg-[#FAF5FF]/50 font-serif select-none overflow-hidden">
+      <div className="flex-1 grid grid-cols-2 grid-rows-2 gap-4 p-4 lg:p-6 h-full">
+        {EMOJIS.map((emoji) => {
+          const votes = pinGroups[emoji];
+          
+          return (
+            <div
+              key={emoji}
+              className="relative bg-white rounded-[2rem] border border-orange-100/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex flex-col overflow-hidden transition-all duration-500"
+            >
+              {/* Tap to react background text */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="flex flex-col items-center opacity-[0.08]">
+                   <span className="text-6xl md:text-8xl mb-2">{emoji}</span>
+                   <span className="text-sm md:text-xl font-bold italic tracking-wider">Tap to react</span>
+                </div>
+              </div>
 
-            {/* Label - Top Right Corner - Smaller and Fit to Content */}
-            <div className="absolute top-3 right-3 z-20">
-               <span className="bg-sky-50 text-sky-800 text-[11px] px-2 py-0.5 rounded-lg italic shadow-sm border border-sky-100 whitespace-nowrap">
-                 {emoji} Pinboard
-               </span>
-            </div>
+              {/* Top Right "Pins" Badge */}
+              <div className="absolute top-4 right-4 z-20">
+                <div className="bg-orange-50 border border-orange-100 px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+                  <span className="text-xs md:text-sm">{emoji}</span>
+                  <span className="text-[10px] md:text-[11px] font-bold italic text-orange-950/80">Pins</span>
+                </div>
+              </div>
 
-            {/* Pins Clustered from Center */}
-            <div className="absolute inset-0 overflow-hidden">
-              {visibleVotes.map((id, index) => {
-                const seed = id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-                
-                const spread = Math.min(25, 8 + (index * 0.7));
-                const left = 50 + (((seed * 3) % (spread * 2)) - spread);
-                const top = 50 + (((seed * 11) % (spread * 2)) - spread);
-                const rotate = (seed % 20) - 10;
-                const scale = 0.7 + ((seed % 4) / 10);
+              {/* Animated Pin Area */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+                {votes.slice(-50).map((id) => {
+                  const seed = id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+                  const left = (seed * 17) % 85 + 7;
+                  const top = (seed * 23) % 85 + 7;
+                  const baseRot = (seed % 40) - 20;
+                  const baseScale = 0.8 + (seed % 10) / 10;
+                  const jumpDur = 1.8 + (seed % 20) / 10 + 's';
+                  const jumpDelay = (seed % 15) / 10 + 's';
 
-                return (
-                  <div
-                    key={id}
-                    className="absolute animate-pin z-10 filter drop-shadow-sm -translate-x-1/2 -translate-y-1/2"
-                    style={{
-                      left: `${left}%`,
-                      top: `${top}%`,
-                      transform: `rotate(${rotate}deg) scale(${scale})`,
-                    }}
-                  >
-                    <div className="relative">
-                       <div className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-sky-700 rounded-full border border-white shadow-sm z-20"></div>
-                       <span className="text-3xl md:text-4xl select-none">{emoji}</span>
+                  return (
+                    <div
+                      key={id}
+                      className="absolute animate-pin animate-jumping-pin flex flex-col items-center"
+                      style={{
+                        left: `${left}%`,
+                        top: `${top}%`,
+                        '--base-rot': `${baseRot}deg`,
+                        '--base-scale': baseScale,
+                        '--jump-dur': jumpDur,
+                        '--jump-delay': jumpDelay,
+                      } as React.CSSProperties}
+                    >
+                      {/* Visual 'Pin' tack - Matching Reference Style */}
+                      <div className="w-1.5 h-1.5 rounded-full bg-orange-400 border border-white shadow-sm mb-0.5"></div>
+                      <span className="text-4xl md:text-5xl lg:text-6xl drop-shadow-xl">{emoji}</span>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
 
-            {votes.length === 0 && (
-              <div className="text-sky-300 italic text-sm z-10">
-                Share your reaction
-              </div>
-            )}
-            
-            {votes.length > 0 && (
-              <div className="absolute bottom-3 left-4 flex items-center gap-2 z-10">
-                <div className="w-1 h-1 bg-sky-600 rounded-full animate-pulse"></div>
-                <span className="text-[10px] text-sky-600 italic">{votes.length} Votes</span>
-              </div>
-            )}
-          </div>
-        );
-      })}
+              {/* Subtle visual grid like in reference */}
+              <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#000 0.5px, transparent 0.5px)', backgroundSize: '20px 20px' }}></div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

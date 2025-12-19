@@ -20,16 +20,14 @@ export const CreativePoll: React.FC<CreativePollProps> = ({ votes }) => {
         return (
           <div key={option} className="relative group w-full">
             <div className="flex justify-between mb-1.5 items-end px-1">
-              <span className="font-bold text-sky-900 text-[13px] md:text-[15px] italic">{option}</span>
-              <span className="font-bold text-xl md:text-2xl text-sky-800 tabular-nums leading-none">{pct}%</span>
+              <span className="font-bold text-orange-950 text-[13px] md:text-[15px] italic">{option}</span>
+              <span className="font-bold text-xl md:text-2xl text-purple-700 tabular-nums leading-none">{pct}%</span>
             </div>
-            {/* Thinner poll bar container */}
-            <div className="h-5 md:h-6 bg-sky-100/50 rounded-full overflow-hidden p-0.5 border border-sky-100">
+            <div className="h-5 md:h-6 bg-orange-50/50 rounded-full overflow-hidden p-0.5 border border-orange-100">
               <div
-                className={`h-full bg-sky-800 rounded-full transition-all duration-[2000ms] ease-out flex items-center justify-end pr-4 shadow-[0_0_12px_rgba(12,74,110,0.2)] relative overflow-hidden`}
+                className={`h-full bg-gradient-to-r from-orange-500 to-purple-600 rounded-full transition-all duration-[2000ms] ease-out flex items-center justify-end pr-4 shadow-lg relative overflow-hidden`}
                 style={{ width: `${pct}%` }}
               >
-                {/* Visual gloss effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] animate-[shimmer_3s_infinite]"></div>
                 
                 {pct > 15 && (

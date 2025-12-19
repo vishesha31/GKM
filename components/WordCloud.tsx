@@ -24,13 +24,13 @@ export const WordCloud: React.FC<WordCloudProps> = ({ words }) => {
     }));
   }, [words]);
 
-  // Darkened professional blue/slate palette
-  const colors = ['text-sky-900', 'text-sky-800', 'text-slate-800', 'text-blue-900', 'text-sky-700'];
+  // Warm palette consistent with logo theme
+  const colors = ['text-orange-600', 'text-purple-600', 'text-orange-800', 'text-purple-800', 'text-pink-600'];
 
   return (
     <div className="flex flex-wrap items-center justify-center gap-6 p-8 w-full h-full bg-transparent">
       {cloudData.length === 0 ? (
-        <p className="text-sky-200 italic uppercase tracking-[0.4em] text-2xl animate-pulse">Awaiting Sentiments...</p>
+        <p className="text-orange-200 italic uppercase tracking-[0.4em] text-2xl animate-pulse">Awaiting Sentiments...</p>
       ) : (
         cloudData.map((item, idx) => (
           <span
@@ -39,8 +39,8 @@ export const WordCloud: React.FC<WordCloudProps> = ({ words }) => {
             style={{ 
               fontSize: `${item.size}rem`, 
               transform: `rotate(${(idx % 2 === 0 ? 1 : -1) * (idx % 5)}deg)`,
-              opacity: 0.6 + (item.size / 5) * 0.4,
-              textShadow: '0 2px 8px rgba(12,74,110,0.05)'
+              opacity: 0.7 + (item.size / 5) * 0.3,
+              textShadow: '0 2px 8px rgba(249,115,22,0.1)'
             }}
           >
             {item.text}

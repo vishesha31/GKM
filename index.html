@@ -10,9 +10,9 @@
     <style>
       body {
         font-family: 'Alice', serif;
-        background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+        background: radial-gradient(circle at top left, #FFF9F2 0%, #FFF0E5 50%, #FAF5FF 100%);
         background-attachment: fixed;
-        color: #0c4a6e;
+        color: #4A2B12;
         overflow-x: hidden;
       }
       h1, h2, h3, h4, h5, h6, button, input, textarea, .font-brand {
@@ -30,10 +30,18 @@
       @keyframes pin-drop {
         0% { transform: scale(3) rotate(-10deg); opacity: 0; }
         70% { transform: scale(0.8) rotate(5deg); }
-        100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        100% { transform: scale(1) rotate(var(--base-rot)) opacity: 1; }
+      }
+      @keyframes jumping {
+        0%, 100% { transform: translateY(0) rotate(var(--base-rot)) scale(var(--base-scale)); }
+        50% { transform: translateY(-15px) rotate(var(--base-rot)) scale(var(--base-scale)); }
       }
       .animate-pin {
         animation: pin-drop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
+      .animate-jumping-pin {
+        animation: jumping var(--jump-dur) infinite ease-in-out;
+        animation-delay: var(--jump-delay);
       }
       .animate-fade-in {
         animation: fade-in 0.5s ease-out forwards;
@@ -45,6 +53,11 @@
       @keyframes shimmer {
         0% { transform: translateX(-100%); }
         100% { transform: translateX(100%); }
+      }
+      .text-gradient {
+        background: linear-gradient(to right, #F97316, #A855F7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
     </style>
     <script type="importmap">

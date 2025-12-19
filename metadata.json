@@ -1,7 +1,5 @@
 {
   "name": "Gurukul Kaushal Mela Feedback",
   "description": "An interactive, real-time feedback system for school events featuring word clouds, emoji reactions, and creative polls.",
-  "requestFramePermissions": [
-    "camera"
-  ]
+  "requestFramePermissions": []
 }

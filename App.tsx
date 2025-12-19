@@ -5,6 +5,8 @@ import { LiveDashboard } from './components/LiveDashboard';
 
 const App: React.FC = () => {
   const [view, setView] = useState<'input' | 'display'>('input');
+  const qrUrl = "https://gkm-ruby.vercel.app/#display";
+  const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrUrl)}&color=4A2B12&bgcolor=ffffff`;
 
   useEffect(() => {
     if (window.location.hash === '#display') {
@@ -35,9 +37,9 @@ const App: React.FC = () => {
         <LiveDashboard />
         <button 
           onClick={switchToInput}
-          className="fixed bottom-4 left-4 z-50 bg-white/80 hover:bg-white px-5 py-2 rounded-full text-[13px] italic text-sky-900 transition-all backdrop-blur-sm shadow-xl border border-sky-100"
+          className="fixed bottom-4 left-4 z-50 bg-white/90 hover:bg-white px-5 py-2 rounded-full text-[13px] italic text-purple-900 transition-all backdrop-blur-sm shadow-xl border border-purple-100 font-bold"
         >
-          ← Exit Display Mode
+          ← Return to Feedback
         </button>
       </div>
     );
@@ -45,34 +47,39 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen pb-24">
-      <nav className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-sky-100 p-4 flex justify-between items-center z-50">
-        <div className="text-[12px] italic text-sky-900 font-bold uppercase tracking-widest">Gurukul Kaushal Mela • 2024</div>
+      <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-orange-100 p-4 flex justify-between items-center z-50">
+        <div className="text-[12px] italic font-bold uppercase tracking-widest text-gradient">Gurukul Kaushal Mela • 2025-26</div>
         <button 
           onClick={switchToDisplay}
-          className="text-[13px] italic text-sky-50 bg-sky-900 px-5 py-2 rounded-full hover:bg-sky-800 transition-all active:scale-95 shadow-lg"
+          className="text-[13px] italic text-white bg-gradient-to-r from-orange-500 to-purple-600 px-6 py-2.5 rounded-full hover:opacity-90 transition-all active:scale-95 shadow-lg font-bold"
         >
-          Go to Live Dashboard
+          Live Dashboard 🖥️
         </button>
       </nav>
       
       <main className="pt-6">
         <FeedbackForm />
         
-        <div className="max-w-xl mx-auto mt-6 px-4 text-center">
-            <div className="bg-white/80 p-8 rounded-[3rem] shadow-xl border-4 border-dashed border-sky-100 inline-block w-full max-w-sm">
-                <div className="w-full aspect-square bg-sky-50/50 rounded-3xl flex items-center justify-center relative overflow-hidden group border border-sky-100">
-                    <div className="grid grid-cols-5 grid-rows-5 gap-1.5 p-6 opacity-30">
-                         {Array.from({length: 25}).map((_, i) => (
-                             <div key={i} className={`bg-sky-900 rounded-sm ${Math.random() > 0.4 ? 'opacity-100' : 'opacity-0'}`}></div>
-                         ))}
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="bg-white p-5 rounded-2xl shadow-xl border border-sky-50 text-sky-900 text-sm text-center italic leading-tight">
-                            Scan to Give<br/>Feedback
-                        </div>
-                    </div>
+        <div className="max-w-xl mx-auto mt-10 px-4 text-center">
+            <div className="bg-white/80 p-8 rounded-[3rem] shadow-xl border-4 border-dashed border-orange-100 inline-block w-full max-w-sm transform hover:scale-[1.02] transition-transform duration-500">
+                <div className="w-full aspect-square bg-white rounded-3xl flex flex-col items-center justify-center relative overflow-hidden group border border-orange-50 p-6 shadow-inner">
+                    <img 
+                      src={qrImageUrl} 
+                      alt="QR Code for Live Dashboard" 
+                      className="w-full h-full object-contain mix-blend-multiply opacity-90 group-hover:opacity-100 transition-opacity"
+                    />
+                    <div className="absolute inset-0 pointer-events-none border-[12px] border-white/40 rounded-3xl"></div>
                 </div>
-                <p className="mt-4 text-[11px] italic text-sky-400 uppercase tracking-[0.2em]">Share Screen for Mobile Users</p>
+                <div className="mt-6 space-y-2">
+                    <div className="bg-orange-50 py-2 px-4 rounded-full inline-block border border-orange-100">
+                        <p className="text-orange-950 text-[13px] italic font-bold leading-tight">
+                            View Live Results ✨
+                        </p>
+                    </div>
+                    <p className="text-[10px] text-orange-400 uppercase tracking-[0.2em] font-bold">
+                        Scan to open Display Mode
+                    </p>
+                </div>
             </div>
         </div>
       </main>

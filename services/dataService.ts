@@ -2,11 +2,11 @@
 import { FeedbackEntry } from '../types';
 
 // Unique topic for the event to ensure no overlap with others
-const SYNC_TOPIC = 'gurukul_mela_sync_2024_v5';
+const SYNC_TOPIC = 'gurukul_mela_sync_2025_26_v1';
 const BASE_URL = 'https://ntfy.sh';
-const STORAGE_KEY = 'gurukul_feedback_data';
+const STORAGE_KEY = 'gurukul_feedback_data_2025';
 
-export const broadcast = new BroadcastChannel('gurukul_local_sync');
+export const broadcast = new BroadcastChannel('gurukul_local_sync_2025');
 
 export const saveFeedback = async (entry: FeedbackEntry) => {
   // 1. Local device storage
