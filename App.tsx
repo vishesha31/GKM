@@ -31,10 +31,17 @@ const App: React.FC = () => {
     setView('input');
   };
 
+  const CreditBadge = () => (
+    <div className="fixed top-1 right-2 lg:top-2 lg:right-6 z-[100] pointer-events-none select-none text-[11px] lg:text-[13px] text-black italic font-bold tracking-tight animate-fade-in drop-shadow-sm">
+      created by Saisha Saxena (VII G)
+    </div>
+  );
+
   if (view === 'display') {
     return (
       <div className="relative h-screen">
         <LiveDashboard />
+        <CreditBadge />
         <button 
           onClick={switchToInput}
           className="fixed bottom-4 left-4 z-50 bg-white/90 hover:bg-white px-5 py-2 rounded-full text-[13px] italic text-purple-900 transition-all backdrop-blur-sm shadow-xl border border-purple-100 font-bold"
@@ -46,7 +53,8 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen pb-24">
+    <div className="min-h-screen pb-24 relative">
+      <CreditBadge />
       <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-orange-100 p-4 flex justify-between items-center z-50">
         <div className="text-[12px] italic font-bold uppercase tracking-widest text-gradient">Gurukul Kaushal Mela • 2025-26</div>
         <button 

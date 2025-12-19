@@ -137,8 +137,8 @@ export const LiveDashboard: React.FC = () => {
       </div>
 
       {/* Header with Logo before Title */}
-      <header className="bg-white px-8 flex justify-between items-center z-20 border-b border-orange-50 shadow-sm h-16 lg:h-20 flex-shrink-0">
-        <div className="flex items-center gap-4">
+      <header className="bg-white px-8 flex justify-between items-center z-20 border-b border-orange-50 shadow-sm h-16 lg:h-24 flex-shrink-0">
+        <div className="flex items-center gap-4 pt-4 lg:pt-6">
            <Logo type="event" className="h-10 lg:h-14 w-auto" />
            <div className="flex flex-col">
               <h1 className="text-lg lg:text-2xl font-bold italic text-gradient leading-none">Gurukul Kaushal Mela</h1>
@@ -146,7 +146,7 @@ export const LiveDashboard: React.FC = () => {
            </div>
         </div>
         
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-8 pt-4 lg:pt-6">
           <div className="text-right">
             <div className="text-[10px] text-orange-400 uppercase tracking-widest font-bold">Total Feedback</div>
             <div className="text-2xl lg:text-3xl text-purple-900 tabular-nums font-bold leading-none">{feedbacks.length}</div>
